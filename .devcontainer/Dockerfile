@@ -13,12 +13,7 @@ RUN apt-get update \
 # * Anything else you want to do like clean up goes here *
 # ********************************************************
 
-# 必要になりそうな物だけ先に入れる
-RUN apt-get -y install curl git
-
-# Next.js+NestJSnoモノレポ構成にするつもりなのでyarnとNestのCLI入れる
-RUN npm install -g npm @nestjs/cli \
-    && corepack enable
+RUN apt-get -y install git
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

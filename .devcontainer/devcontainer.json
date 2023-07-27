@@ -11,8 +11,7 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "mhutchie.git-graph",
-        "eamodio.gitlens",
-        "Prisma.prisma"
+        "eamodio.gitlens"
       ]
     }
   }
