@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+  padding: 0 1.5em;
+  display: flex;
+  justify-content: center;
+  font-family: YakuHanJPs, Roboto, "Hiragino Kaku Gothic ProN",
+    "ヒラギノ角ゴ ProN W3", Arial, nc3Jp, sans-serif !important;
+}
+img {
+  width: 100%;
+  max-width: 480px;
+  border: solid 1px #000;
+}
+iframe {
+  width: 100% !important;
+}
+a:link,
+a:visited,
+a:hover,
+a:active {
+  color: #228;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.container {
+  width: 720px;
+  min-width: 320px;
+}
+article {
+  position: relative;
+  border-top: 1px dotted #000;
+}
+.article-title {
+  margin-bottom: 0;
+}
+.article-date {
+  position: relative;
+  top: -0.5em;
+}
+footer {
+  padding: 1em 0;
+  border-top: 1px dotted #000;
+}

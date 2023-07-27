@@ -1,0 +1,34 @@
+{
+  "name": "DevContainer-NodeSlim",
+  "dockerComposeFile": "docker-compose.yml",
+
+  "service": "node",
+  "remoteUser": "node",
+  "workspaceFolder": "/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "Prisma.prisma"
+      ]
+    }
+  }
+
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  // "features": {},
+
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // "forwardPorts": [],
+
+  // Uncomment the next line if you want start specific services in your Docker Compose config.
+  // "runServices": [],
+
+  // Uncomment the next line if you want to keep your containers running after VS Code shuts down.
+  // "shutdownAction": "none",
+
+  // Uncomment the next line to run commands after the container is created.
+  // "postCreateCommand": "cat /etc/os-release",
+}
