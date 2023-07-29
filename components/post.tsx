@@ -1,20 +1,16 @@
 import { Post } from "@libs/microcms";
 import dayjs from "dayjs";
 import parse, { DOMNode, Element, domToReact } from "html-react-parser";
+import Image from "next/image";
 import Link from "next/link";
 
 type Props = { post: Post; isDetails?: boolean };
 export default async function Post({ post, isDetails }: Props) {
+  const title = <h2 className="text-xl font-bold">{post.title}</h2>;
   return (
     <article className="border-b border-dotted border-black">
       <div className="relative mb-6">
-        {isDetails ? (
-          <h4 className="text-xl font-bold">{post.title}</h4>
-        ) : (
-          <Link href={post.slug}>
-            <h4 className="text-xl font-bold">{post.title}</h4>
-          </Link>
-        )}
+        {isDetails ? title : <Link href={post.slug}>{title}</Link>}
         <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
           <span>
             {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
@@ -41,11 +37,25 @@ const replace = (domNode: DOMNode) => {
       </p>
     );
   }
+  if (tagName === "img") {
+    return (
+      <Image
+        {...domNode.attribs}
+        src={domNode.attribs.src}
+        alt={domNode.attribs.alt}
+        unoptimized
+      />
+    );
+  }
   if (tagName === "a") {
     return (
-      <a {...domNode.attribs} className="text-emerald-600 font-bold">
+      <Link
+        {...domNode.attribs}
+        href={domNode.attribs.href}
+        className="text-emerald-700 font-bold"
+      >
         {domToReact(domNode.children, { replace })}
-      </a>
+      </Link>
     );
   }
   if (tagName === "h2") {

@@ -17,7 +17,7 @@ export default async function StaticPage() {
     <div className="flex flex-col gap-2">
       {LINKS.map((link, i) => (
         <div key={i}>
-          <Link href={link.url} className="text-emerald-600 font-bold">
+          <Link href={link.url} className="text-emerald-700 font-bold">
             {link.name}
           </Link>
           <div>管理人コメント: オススメ！！</div>

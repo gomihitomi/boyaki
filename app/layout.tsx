@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="jp">
+    <html lang="ja">
       <body className={font.className}>
         <div className="mx-auto max-w-screen-md p-4">
           <Header />

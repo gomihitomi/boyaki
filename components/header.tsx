@@ -6,7 +6,7 @@ export default async function Header() {
       <Link href="./">
         <h1 className="text-3xl font-bold">吾味人美のぼやき</h1>
       </Link>
-      <Link href="./link" className="text-emerald-600 font-bold">
+      <Link href="./link" className="text-emerald-700 font-bold">
         リンク集
       </Link>
     </header>
