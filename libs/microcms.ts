@@ -42,7 +42,9 @@ export const client = createClient({
 export const getPosts = async () => {
   const result = await client.getList<Post>({
     customRequestInit: {
-      cache: "no-store",
+      next: {
+        revalidate: 1,
+      },
     },
     endpoint: "posts",
     queries: { orders: "-publishedAt" },
@@ -54,7 +56,9 @@ export const getPostDetail = async (slug: string) => {
   const queries: MicroCMSQueries = { limit: 1, filters: `slug[equals]${slug}` };
   const result = await client.getList<Post>({
     customRequestInit: {
-      cache: "no-store",
+      next: {
+        revalidate: 1,
+      },
     },
     endpoint: "posts",
     queries,

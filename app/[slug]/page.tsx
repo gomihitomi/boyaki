@@ -19,5 +19,5 @@ export default async function StaticDetailPage({
   if (!posts || posts.totalCount !== 1) {
     notFound();
   }
-  return <Post post={posts.contents[0]} />;
+  return <Post post={posts.contents[0]} isDetails />;
 }

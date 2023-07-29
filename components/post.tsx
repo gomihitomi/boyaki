@@ -1,13 +1,20 @@
 import { Post } from "@libs/microcms";
 import dayjs from "dayjs";
 import parse, { DOMNode, Element, domToReact } from "html-react-parser";
+import Link from "next/link";
 
-type Props = { post: Post };
-export default async function Post({ post }: Props) {
+type Props = { post: Post; isDetails?: boolean };
+export default async function Post({ post, isDetails }: Props) {
   return (
     <article className="border-b border-dotted border-black">
       <div className="relative mb-6">
-        <h4 className="text-xl font-bold">{post.title}</h4>
+        {isDetails ? (
+          <h4 className="text-xl font-bold">{post.title}</h4>
+        ) : (
+          <Link href={post.slug}>
+            <h4 className="text-xl font-bold">{post.title}</h4>
+          </Link>
+        )}
         <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
           <span>
             {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
