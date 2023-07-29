@@ -76,12 +76,12 @@ jobs:
       - name: Build with Next.js
         run: |
           touch .env
-          echo MICROCMS_API_KEY=$MICROCMS_API_KEY >> .env
+          echo MICROCMS_SERVICE_DOMAIN=$MICROCMS_SERVICE_DOMAIN >> .env
           echo MICROCMS_API_KEY=$MICROCMS_API_KEY >> .env
           ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_API_KEY }}
-          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
