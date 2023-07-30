@@ -10,6 +10,7 @@ import { createClient } from "microcms-js-sdk";
 type MicroCMSType = MicroCMSContentId & MicroCMSDate;
 
 export type Tag = {
+  slug: string;
   name: string;
 } & MicroCMSType;
 

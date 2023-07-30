@@ -1,4 +1,5 @@
 import { Post } from "@libs/microcms";
+import { LINK_CLASSNAME } from "@libs/utils";
 import dayjs from "dayjs";
 import parse, { DOMNode, Element, domToReact } from "html-react-parser";
 import Image from "next/image";
@@ -16,7 +17,9 @@ export default async function Post({ post, isDetails }: Props) {
             {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
           </span>
           {post.tags.map((tag) => (
-            <span key={tag.id}>{tag.name}</span>
+            <span key={tag.slug} className={`${LINK_CLASSNAME}`}>
+              #{tag.name}
+            </span>
           ))}
         </div>
       </div>
