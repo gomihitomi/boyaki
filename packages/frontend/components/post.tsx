@@ -11,7 +11,7 @@ export default async function Post({ post, isDetails }: Props) {
   return (
     <article className="border-b border-dotted border-black">
       <div className="relative mb-6">
-        {isDetails ? title : <Link href={post.slug}>{title}</Link>}
+        {isDetails ? title : <Link href={`/posts/${post.slug}`}>{title}</Link>}
         <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
           <span>
             {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}

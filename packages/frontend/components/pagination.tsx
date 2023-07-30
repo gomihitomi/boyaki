@@ -18,7 +18,7 @@ export default async function Pagination({ current, totalCount }: Props) {
             </span>
           ) : (
             <Link
-              href={`/page/${number}`}
+              href={`/pages/${number}`}
               className="w-8 h-8 bg-emerald-700 text-white grid place-content-center rounded-full"
             >
               {number}
