@@ -46,6 +46,7 @@ const replace = (domNode: DOMNode) => {
         {...domNode.attribs}
         src={domNode.attribs.src}
         alt={domNode.attribs.alt}
+        className="drop-shadow-md my-2"
         unoptimized
       />
     );
