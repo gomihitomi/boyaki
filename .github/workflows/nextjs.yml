@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-pages
     env:
+      NODE_ENV: production
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
     defaults:
