@@ -1,3 +1,4 @@
+import { PAGE_POST_LIMIT } from "@libs/utils";
 import type {
   MicroCMSContentId,
   MicroCMSDate,
@@ -39,7 +40,7 @@ export const client = createClient({
   apiKey: process.env.MICROCMS_API_KEY,
 });
 
-export const getPosts = async () => {
+export const getPosts = async (queries?: MicroCMSQueries) => {
   const result = await client.getList<Post>({
     customRequestInit: {
       next: {
@@ -47,7 +48,7 @@ export const getPosts = async () => {
       },
     },
     endpoint: "posts",
-    queries: { orders: "-publishedAt" },
+    queries: { limit: PAGE_POST_LIMIT, orders: "-publishedAt", ...queries },
   });
   return result;
 };
