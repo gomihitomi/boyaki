@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-pages
     env:
+      NODE_ENV: production
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
     steps:
@@ -82,7 +83,7 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
-        run: cd ./packages/frontend && ${{ steps.detect-package-manager.outputs.runner }} next build
+        run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
