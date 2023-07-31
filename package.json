@@ -7,6 +7,6 @@
   ],
   "scripts": {
     "build": "npm run build -w packages/backend",
-    "start": "node packages/backend/dist/main"
+    "start": "node main"
   }
 }
