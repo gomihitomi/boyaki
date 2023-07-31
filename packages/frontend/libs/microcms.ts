@@ -1,4 +1,4 @@
-import { PAGE_POST_LIMIT } from "@libs/utils";
+import { PAGE_POST_LIMIT } from "@/libs/utils";
 import type {
   MicroCMSContentId,
   MicroCMSDate,

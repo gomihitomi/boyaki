@@ -1,7 +1,7 @@
-import Pagination from "@components/pagination";
-import Post from "@components/post";
-import { Post as PostType } from "@libs/microcms";
-import { PAGE_POST_LIMIT } from "@libs/utils";
+import Pagination from "@/components/pagination";
+import Post from "@/components/post";
+import { Post as PostType } from "@/libs/microcms";
+import { PAGE_POST_LIMIT } from "@/libs/utils";
 import { MicroCMSListResponse } from "microcms-js-sdk";
 
 type Props = { result: MicroCMSListResponse<PostType> };

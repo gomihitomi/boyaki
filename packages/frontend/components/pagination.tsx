@@ -1,4 +1,4 @@
-import { getEndPage, range } from "@libs/utils";
+import { getEndPage, range } from "@/libs/utils";
 import Link from "next/link";
 
 type Props = { current: number; totalCount: number };

@@ -1,5 +1,5 @@
-import Footer from "@components/footer";
-import Header from "@components/header";
+import Footer from "@/components/footer";
+import Header from "@/components/header";
 import type { Metadata } from "next";
 import { BIZ_UDPGothic } from "next/font/google";
 import "./globals.css";

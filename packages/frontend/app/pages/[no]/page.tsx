@@ -1,6 +1,6 @@
-import Posts from "@components/posts";
-import { getPosts } from "@libs/microcms";
-import { PAGE_POST_LIMIT, range } from "@libs/utils";
+import Posts from "@/components/posts";
+import { getPosts } from "@/libs/microcms";
+import { PAGE_POST_LIMIT, range } from "@/libs/utils";
 
 export async function generateStaticParams() {
   const { totalCount } = await getPosts({ limit: 0 });

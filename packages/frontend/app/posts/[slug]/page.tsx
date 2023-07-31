@@ -1,5 +1,5 @@
-import Post from "@components/post";
-import { getPostDetail, getPosts } from "@libs/microcms";
+import Post from "@/components/post";
+import { getPostDetail, getPosts } from "@/libs/microcms";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
