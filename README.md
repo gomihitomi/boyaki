@@ -84,6 +84,16 @@
 
 3. [http://localhost:3001](http://localhost:3001)を開く
 
+## microCMS
+* TODO: 気が向いたら書く
+
+## Cyclic
+* TODO: 気が向いたら書く
+    ```
+    Root Path: /packages/backend
+    Output Path: packages/backend/dist
+    ```
+
 ## その他
 * nodeがポート掴んだままエラー落ちした時
     ```bash
