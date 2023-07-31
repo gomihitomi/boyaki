@@ -34,7 +34,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: github-pages
     env:
-      NODE_ENV: production
+      # GithubPagesに公開する時、静的ファイルが全てルートに対しての絶対パスになっているのでレポジトリ名を接頭辞として設定
+      PREFIX_PATH: /boyaki
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
       MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
     defaults:
