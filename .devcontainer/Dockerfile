@@ -14,6 +14,7 @@ RUN apt-get update \
 # ********************************************************
 
 RUN apt-get -y install git lsof curl \
-    && npm install -g @nestjs/cli
+    && npm install -g npm @nestjs/cli
+
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME
