@@ -3,7 +3,7 @@ import { getPostDetail, getPosts } from "@/libs/microcms";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  const { contents } = await getPosts();
+  const { contents } = await getPosts({ limit: 1000 });
 
   const paths = contents.map((post) => ({ slug: post.slug }));
   return [...paths];
