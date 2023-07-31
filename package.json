@@ -4,9 +4,5 @@
   "private": true,
   "workspaces": [
     "packages/*"
-  ],
-  "scripts": {
-    "build": "npm run build -w packages/backend",
-    "start": "node dist/main"
-  }
+  ]
 }
