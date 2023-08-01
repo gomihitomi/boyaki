@@ -9,7 +9,4 @@ module.exports = {
         'commonjs2 @nestjs/microservices/microservices-module',
     },
   ],
-  optimization: {
-    minimize: false,
-  },
 };
