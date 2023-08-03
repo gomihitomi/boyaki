@@ -13,7 +13,7 @@ RUN apt-get update \
 # * Anything else you want to do like clean up goes here *
 # ********************************************************
 
-RUN apt-get -y install git lsof curl \
+RUN apt-get -y install git lsof curl procps \
     && npm install -g npm @nestjs/cli
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
