@@ -9,7 +9,7 @@ type Props = { post: Post; isDetails?: boolean };
 export default async function Post({ post, isDetails }: Props) {
   const title = <h2 className="text-xl font-bold">{post.title}</h2>;
   return (
-    <article className="border-b border-dotted border-black">
+    <article className="border-b border-dotted border-black pb-3">
       <div className="relative mb-6">
         {isDetails ? title : <Link href={`/posts/${post.slug}`}>{title}</Link>}
         <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
@@ -23,7 +23,9 @@ export default async function Post({ post, isDetails }: Props) {
           ))}
         </div>
       </div>
-      <div>{parse(post.body, { replace })}</div>
+      <div className="flex flex-col gap-3 leading-6">
+        {parse(post.body, { replace })}
+      </div>
     </article>
   );
 }
@@ -33,13 +35,6 @@ const replace = (domNode: DOMNode) => {
     return;
   }
   const tagName = domNode.tagName;
-  if (tagName === "p") {
-    return (
-      <p className="mb-3 leading-6">
-        {domToReact(domNode.children, { replace })}
-      </p>
-    );
-  }
   if (tagName === "img") {
     return (
       <Image

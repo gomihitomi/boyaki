@@ -1,4 +1,4 @@
-export const PAGE_POST_LIMIT = 5;
+export const PAGE_POST_LIMIT = 3;
 
 export const getEndPage = (totalCount: number) =>
   Math.ceil(totalCount / PAGE_POST_LIMIT);
