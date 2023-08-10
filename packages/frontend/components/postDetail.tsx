@@ -1,9 +1,9 @@
 "use client";
 
 import PhChatCircleDotsFill from "@/components/icons/PhChatCircleDotsFill";
-import { useBoyakiStorage } from "@/libs/useBoyakiStorage";
-import { usePostDetail } from "@/libs/usePostDetail";
-import { LINK_CLASSNAME } from "@/libs/utils";
+import { useBoyakiStorage } from "@/hooks/useBoyakiStorage";
+import { usePostDetail } from "@/hooks/usePostDetail";
+import { LINK_CLASSNAME } from "@/libs/constants";
 import Link from "next/link";
 import { useState } from "react";
 import PhHeartStraightBold from "./icons/PhHeartStraightBold";

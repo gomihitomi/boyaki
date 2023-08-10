@@ -30,7 +30,8 @@ export function useBoyakiStorage(slug: string) {
 
   const onLike = () => {
     const value = boyakiStorage.filter((v) => v.slug !== slug);
-    setUpdateBoyakiStorage([...value, { slug, hasLike: !hasLike }]);
+    // TODO: 終わったらプッシュ
+    // setUpdateBoyakiStorage([...value, { slug, hasLike: !hasLike }]);
   };
 
   return {

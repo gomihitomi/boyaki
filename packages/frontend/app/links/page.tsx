@@ -1,4 +1,4 @@
-import { LINK_CLASSNAME } from "@/libs/utils";
+import { LINK_CLASSNAME } from "@/libs/constants";
 import Link from "next/link";
 
 type Link = {

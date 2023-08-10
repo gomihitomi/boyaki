@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true, // 型定義ファイル作成
+    "strict": true, // 厳格モード
+    "esModuleInterop": true, // CommonJS or ES Modulesで相互運用できるコードを出力
+    "skipLibCheck": true, // 型定義チェックスキップ
+    "forceConsistentCasingInFileNames": true // 大文字小文字区別
+  }
+}

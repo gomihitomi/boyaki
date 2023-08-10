@@ -1,4 +1,3 @@
-import { PAGE_POST_LIMIT } from "@/libs/utils";
 import type {
   MicroCMSContentId,
   MicroCMSDate,
@@ -6,6 +5,7 @@ import type {
   MicroCMSQueries,
 } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
+import { PAGE_POST_LIMIT } from "./utils";
 
 type MicroCMSType = MicroCMSContentId & MicroCMSDate;
 
@@ -39,11 +39,6 @@ export const client = createClient({
 
 export const getPosts = async (queries?: MicroCMSQueries) => {
   const result = await client.getList<Post>({
-    customRequestInit: {
-      next: {
-        revalidate: 1,
-      },
-    },
     endpoint: "posts",
     queries: { limit: PAGE_POST_LIMIT, orders: "-publishedAt", ...queries },
   });
@@ -53,11 +48,6 @@ export const getPosts = async (queries?: MicroCMSQueries) => {
 export const getPostDetail = async (slug: string) => {
   const queries: MicroCMSQueries = { limit: 1, filters: `slug[equals]${slug}` };
   const result = await client.getList<Post>({
-    customRequestInit: {
-      next: {
-        revalidate: 1,
-      },
-    },
     endpoint: "posts",
     queries,
   });

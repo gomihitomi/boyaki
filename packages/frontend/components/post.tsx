@@ -1,5 +1,5 @@
-import { Post } from "@/libs/microcms";
-import { LINK_CLASSNAME } from "@/libs/utils";
+import { LINK_CLASSNAME } from "@/libs/constants";
+import { Post } from "@boyaki/lib";
 import dayjs from "dayjs";
 import parse, { DOMNode, Element, domToReact } from "html-react-parser";
 import Image from "next/image";

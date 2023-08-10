@@ -1,5 +1,5 @@
+import { Post } from "@boyaki/lib";
 import { useEffect, useState } from "react";
-import { Post } from "./microcms";
 
 export function usePostDetail(slug: string) {
   const [postDetail, setPostDetail] = useState<Post>();
