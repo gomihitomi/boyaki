@@ -6,7 +6,7 @@ router.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", `${process.env.CORS}`);
   res.setHeader(
     "Access-Control-Allow-Methods",
-    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+    "GET,POST,PUT,PATCH,DELETE,OPTION,OPTIONS"
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader(
