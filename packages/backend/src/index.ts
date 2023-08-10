@@ -1,7 +1,6 @@
-import { getExample } from "@boyaki/lib";
+import { getExample, getPostDetail } from "@boyaki/lib";
 import "dotenv/config";
 import express from "express";
-import { getPostDetail } from "./microcms";
 
 const app = express();
 const port = process.env.PORT ?? 3000;
