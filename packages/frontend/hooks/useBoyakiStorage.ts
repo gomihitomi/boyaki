@@ -15,7 +15,7 @@ export function useBoyakiStorage(slug: string) {
     if (!strorage) {
       localStorage.setItem(STORAGE_KEY_DARK_MODE, "[]");
     }
-    setBoyakiStorage(!strorage ? {} : JSON.parse(strorage));
+    setBoyakiStorage(!strorage ? [] : JSON.parse(strorage));
   }, []);
 
   const setUpdateBoyakiStorage = useCallback((storage: BoyakiStorage[]) => {
