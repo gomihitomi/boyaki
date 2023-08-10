@@ -10,9 +10,9 @@ export default async function Pagination({ current, totalCount }: Props) {
 
   return (
     <ul className="flex my-4 gap-2 justify-center">
-      {range(1, end).map((number, index) => (
-        <li key={index} className="font-bold">
-          {index === current ? (
+      {range(1, end).map((number) => (
+        <li key={number} className="font-bold">
+          {number - 1 === current ? (
             <span className="w-8 h-8 bg-white border border-black border-dotted grid place-content-center rounded-full">
               {number}
             </span>

@@ -20,16 +20,31 @@ export default function PostDetail({ post, isDetails }: Props) {
 
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
+  const [isSubmit, setSubmit] = useState(false);
 
   const submitProcessing = useRef(false);
   const disabled = useMemo(() => submitProcessing.current, []);
+
+  const isErrorName = useMemo(
+    () => name.length === 0 || name.length > 100,
+    [name]
+  );
+  const isErrorBody = useMemo(
+    () => body.length === 0 || body.length > 1000,
+    [body]
+  );
+  const disabledSubmit = useMemo(
+    () => !!postDetail && !isErrorName && !isErrorBody,
+    [isErrorBody, isErrorName, postDetail]
+  );
 
   const onSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (submitProcessing.current) {
       return;
     }
-    if (!!postDetail && !!name && !!body) {
+    setSubmit(true);
+    if (disabledSubmit) {
       submitProcessing.current = true;
       const detail = await postApiLikeOrPost({
         type: "comment",
@@ -40,6 +55,7 @@ export default function PostDetail({ post, isDetails }: Props) {
       setPostDetail(detail);
       setName("");
       setBody("");
+      setSubmit(false);
       submitProcessing.current = false;
     }
   };
@@ -109,8 +125,9 @@ export default function PostDetail({ post, isDetails }: Props) {
                 onChange={(e) => setName(e.target.value)}
                 value={name}
                 required
+                maxLength={100}
               />
-              <span className="text-sm">※100文字まで</span>
+              <span className="text-sm">{name.length}/100</span>
             </div>
             <div className="flex flex-col">
               <label className="text-sm font-bold">コメント</label>
@@ -122,13 +139,13 @@ export default function PostDetail({ post, isDetails }: Props) {
                 maxLength={1000}
                 required
               />
-              <span className="text-sm">※1000文字まで</span>
+              <span className="text-sm">{body.length}/1000</span>
             </div>
             <button
               type="submit"
-              className="text-white bg-emerald-700 p-2 rounded w-24 disabled:bg-grey-800 disabled:text-gray-500"
+              className="text-white bg-emerald-700 p-2 rounded w-24 disabled:bg-gray-400 disabled:text-gray-300"
               onClick={(e) => onSubmit(e)}
-              disabled={disabled}
+              disabled={!disabledSubmit}
             >
               送信
             </button>
