@@ -2,7 +2,11 @@
   "name": "boyaki",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build": "npm run build --workspaces"
+  },
   "workspaces": [
+    "packages/lib",
     "packages/*"
   ]
 }
