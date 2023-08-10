@@ -9,7 +9,7 @@ router.options("*", function (req, res) {
 router.get("/", async (req, res) => {
   const slug = req.query.slug;
   if (!slug || slug === "favicon.ico") {
-    res.send({ cors: process.env.CORS });
+    res.send("");
     return;
   }
   const detail = await getPostDetail(slug as string);
