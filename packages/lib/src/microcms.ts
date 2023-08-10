@@ -41,9 +41,6 @@ export const getPosts = async (queries?: MicroCMSQueries) => {
   const result = await client.getList<Post>({
     endpoint: "posts",
     queries: { limit: PAGE_POST_LIMIT, orders: "-publishedAt", ...queries },
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
   return result;
 };
@@ -53,9 +50,6 @@ export const getPostDetail = async (slug: string) => {
   const result = await client.getList<Post>({
     endpoint: "posts",
     queries,
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
   return result;
 };
@@ -64,9 +58,6 @@ export const updatePostLike = async (id: string) => {
   const result = await client.getListDetail<Post>({
     endpoint: "posts",
     contentId: id,
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
   if (!result) {
     console.warn("not id: " + id);
@@ -83,9 +74,6 @@ export const updatePostLike = async (id: string) => {
   const updatedResult = await client.getListDetail<Post>({
     endpoint: "posts",
     contentId: id,
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
   return {
     like: updatedResult.like ?? 0,
@@ -101,9 +89,6 @@ export const updatePostComment = async (
   const result = await client.getListDetail<Post>({
     endpoint: "posts",
     contentId: id,
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
   if (!result) {
     console.warn("not id: " + id);
