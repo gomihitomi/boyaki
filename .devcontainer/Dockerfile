@@ -14,7 +14,7 @@ RUN apt-get update \
 # ********************************************************
 
 RUN apt-get -y install git lsof curl procps \
-    && npm install -g npm @nestjs/cli
+    && npm install -g npm vercel@latest
 
 # [Optional] Set the default user. Omit if you want to keep the default as root.
 USER $USERNAME

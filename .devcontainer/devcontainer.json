@@ -1,8 +1,8 @@
 {
-  "name": "DevContainer-NodeSlim",
+  "name": "Boyaki",
   "dockerComposeFile": "docker-compose.yml",
 
-  "service": "node",
+  "service": "boyaki",
   "remoteUser": "node",
   "workspaceFolder": "/workspace",
   "customizations": {
