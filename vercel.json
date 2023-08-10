@@ -1,6 +1,6 @@
 {
   "functions": {
-    "packages/backend/api/index.ts": {
+    "api/index.ts": {
       "memory": 1024
     }
   },

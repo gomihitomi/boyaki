@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "build": "npm run build --workspaces",
-    "fe-build": "npm run build -w packages/lib -w packages/frontend ",
-    "be-build": "npm run build -w packages/lib -w packages/backend "
+    "fe-build": "npm run build -w packages/lib -w packages/frontend",
+    "be-build": "npm run build -w packages/lib -w packages/backend"
   },
   "workspaces": [
     "packages/lib",
