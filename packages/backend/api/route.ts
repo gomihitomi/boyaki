@@ -9,7 +9,8 @@ router.options("*", function (req, res) {
 router.get("/", async (req, res) => {
   const slug = req.query.slug;
   if (!slug || slug === "favicon.ico") {
-    return res.send("");
+    res.send({ cors: process.env.CORS });
+    return;
   }
   const detail = await getPostDetail(slug as string);
   if (detail.contents.length !== 1) {
@@ -45,10 +46,6 @@ router.post("/", async (req, res) => {
     return;
   }
   res.send({ message: "no type" });
-});
-
-router.get("/test", (req, res) => {
-  res.send({ cors: process.env.CORS });
 });
 
 export default router;
