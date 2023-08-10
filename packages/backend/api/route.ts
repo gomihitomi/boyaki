@@ -2,6 +2,20 @@ import { getPostDetail, updatePostComment, updatePostLike } from "@boyaki/lib";
 import * as Express from "express";
 const router = Express.Router();
 
+router.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", `${process.env.CORS}`);
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET,POST,PUT,PATCH,DELETE,OPTIONS"
+  );
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+  next();
+});
+
 router.options("*", function (req, res) {
   res.sendStatus(200);
 });
