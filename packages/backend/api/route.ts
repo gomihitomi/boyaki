@@ -47,4 +47,8 @@ router.post("/", async (req, res) => {
   res.send({ message: "no type" });
 });
 
+router.get("/test", (req, res) => {
+  res.send({ cors: process.env.CORS });
+});
+
 export default router;
