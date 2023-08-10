@@ -4,29 +4,34 @@ import dayjs from "dayjs";
 import parse, { DOMNode, Element, domToReact } from "html-react-parser";
 import Image from "next/image";
 import Link from "next/link";
+import PostDetail from "./postDetail";
 
 type Props = { post: Post; isDetails?: boolean };
 export default async function Post({ post, isDetails }: Props) {
   const title = <h2 className="text-xl font-bold">{post.title}</h2>;
   return (
-    <article className="border-b border-dotted border-black pb-3">
-      <div className="relative mb-6">
-        {isDetails ? title : <Link href={`/posts/${post.slug}`}>{title}</Link>}
-        <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
-          <span>
-            {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
-          </span>
-          {post.tags.map((tag) => (
-            <span key={tag.slug} className={`${LINK_CLASSNAME}`}>
-              #{tag.name}
+    <div>
+      <article className="border-b border-dotted border-black pb-3">
+        <div className="relative mb-6">
+          {isDetails ? (
+            title
+          ) : (
+            <Link className={`${LINK_CLASSNAME}`} href={`/posts/${post.slug}`}>
+              {title}
+            </Link>
+          )}
+          <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
+            <span>
+              {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
             </span>
-          ))}
+          </div>
         </div>
-      </div>
-      <div className="flex flex-col gap-3 leading-6">
-        {parse(post.body, { replace })}
-      </div>
-    </article>
+        <div className="flex flex-col gap-3 leading-6 break-words">
+          {parse(post.body, { replace })}
+        </div>
+      </article>
+      <PostDetail {...{ slug: post.slug, isDetails }} />
+    </div>
   );
 }
 

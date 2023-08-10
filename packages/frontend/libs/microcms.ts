@@ -9,23 +9,19 @@ import { createClient } from "microcms-js-sdk";
 
 type MicroCMSType = MicroCMSContentId & MicroCMSDate;
 
-export type Tag = {
-  slug: string;
-  name: string;
-} & MicroCMSType;
-
 export type Comment = {
+  fieldId: string;
   name: string;
   body: string;
-} & MicroCMSType;
+};
 
 export type Post = {
   slug: string;
   title: string;
   body: string;
   image?: MicroCMSImage;
-  tags: Tag[];
-  comments: Comment[];
+  like?: number;
+  comments?: Comment[];
 } & MicroCMSType;
 
 if (!process.env.MICROCMS_SERVICE_DOMAIN) {

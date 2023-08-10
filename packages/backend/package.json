@@ -2,8 +2,10 @@
   "name": "backend",
   "version": "1.0.0",
   "private": true,
+  "main": "api/index.js",
   "scripts": {
-    "dev": "ts-node api/index.ts"
+    "dev": "ts-node api/index.ts",
+    "build": "tsc"
   },
   "dependencies": {
     "dotenv": "^16.3.1",

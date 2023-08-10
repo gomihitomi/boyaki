@@ -13,7 +13,7 @@ export default async function Posts({ result }: Props) {
 
   return (
     <div>
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         {contents.map((post) => (
           <Post key={post.id} post={post} />
         ))}
