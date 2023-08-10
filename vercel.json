@@ -1,13 +1,13 @@
 {
   "functions": {
-    "api/index.ts": {
+    "packages/backend/api/index.ts": {
       "memory": 1024
     }
   },
   "rewrites": [
     {
       "source": "/(.*)",
-      "destination": "/packages/backend/api"
+      "destination": "/api"
     }
   ]
 }
