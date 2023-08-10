@@ -1,6 +1,10 @@
-import { getPostDetail, updatePostLike } from "@boyaki/lib";
+import { getPostDetail, updatePostComment, updatePostLike } from "@boyaki/lib";
 import * as Express from "express";
 const router = Express.Router();
+
+router.options("*", function (req, res) {
+  res.sendStatus(200);
+});
 
 router.get("/", async (req, res) => {
   const slug = req.query.slug;
@@ -27,13 +31,18 @@ type PostRequest = {
 };
 router.post("/", async (req, res) => {
   const request: PostRequest = req.body;
-  console.log(request);
   if (request.type === "like") {
     const likeResult = await updatePostLike(request.id);
     res.send(likeResult);
     return;
   } else if (request.type === "comment") {
-    // updatePostComment(request.id, request.name, request.body);
+    const commentResult = await updatePostComment(
+      request.id,
+      request.name?.substring(0, 100) ?? "",
+      request.body?.substring(0, 1000) ?? ""
+    );
+    res.send(commentResult);
+    return;
   }
   res.send({ message: "no type" });
 });

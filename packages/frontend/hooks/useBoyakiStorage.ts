@@ -1,4 +1,4 @@
-import { postApiLike } from "@/libs/microcms";
+import { postApiLikeOrPost } from "@/libs/microcms";
 import { Post } from "@boyaki/lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
@@ -34,7 +34,7 @@ export function useBoyakiStorage(post: Post) {
   const onLike = async () => {
     const value = boyakiStorage.filter((v) => v.slug !== slug);
     setUpdateBoyakiStorage([...value, { slug, hasLike: !hasLike }]);
-    const result = await postApiLike(post.id);
+    const result = await postApiLikeOrPost({ type: "like", id: post.id });
     return result;
   };
 

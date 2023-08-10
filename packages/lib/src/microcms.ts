@@ -80,3 +80,37 @@ export const updatePostLike = async (id: string) => {
     comments: updatedResult.comments ?? [],
   };
 };
+
+export const updatePostComment = async (
+  id: string,
+  name: string,
+  body: string
+) => {
+  const result = await client.getListDetail<Post>({
+    endpoint: "posts",
+    contentId: id,
+  });
+  if (!result) {
+    console.warn("not id: " + id);
+    return;
+  }
+  const comments = [
+    ...(result.comments ?? []),
+    { fieldId: "comment", name: name, body },
+  ];
+  await client.update({
+    endpoint: "posts",
+    contentId: id,
+    content: {
+      comments,
+    },
+  });
+  const updatedResult = await client.getListDetail<Post>({
+    endpoint: "posts",
+    contentId: id,
+  });
+  return {
+    like: updatedResult.like ?? 0,
+    comments: updatedResult.comments ?? [],
+  };
+};

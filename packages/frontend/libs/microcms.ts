@@ -1,4 +1,3 @@
-console.log(process.env.NEXT_PUBLIC_API_URL);
 if (!process.env.NEXT_PUBLIC_API_URL) {
   throw new Error("NEXT_PUBLIC_API_URL is required");
 }
@@ -27,11 +26,7 @@ type PostRequest = {
   name?: string;
   body?: string;
 };
-export const postApiLike = async (id: string) => {
-  const data: PostRequest = {
-    type: "like",
-    id,
-  };
+export const postApiLikeOrPost = async (req: PostRequest) => {
   const result: ApiPostDetail = await (
     await fetch(`${process.env.NEXT_PUBLIC_API_URL}`, {
       method: "POST",
@@ -40,7 +35,7 @@ export const postApiLike = async (id: string) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(req),
     })
   ).json();
   return result;
