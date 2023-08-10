@@ -15,15 +15,13 @@ type Props = { post: Post; isDetails?: boolean };
 export default function PostDetail({ post, isDetails }: Props) {
   const { slug } = post;
 
-  const { hasLike, onLike } = useBoyakiStorage(post);
+  const { hasLike, onLike, isLoading } = useBoyakiStorage(post);
   const { postDetail, setPostDetail } = usePostDetail(slug);
 
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
-  const [isSubmit, setSubmit] = useState(false);
 
   const submitProcessing = useRef(false);
-  const disabled = useMemo(() => submitProcessing.current, []);
 
   const isErrorName = useMemo(
     () => name.length === 0 || name.length > 100,
@@ -43,7 +41,6 @@ export default function PostDetail({ post, isDetails }: Props) {
     if (submitProcessing.current) {
       return;
     }
-    setSubmit(true);
     if (disabledSubmit) {
       submitProcessing.current = true;
       const detail = await postApiLikeOrPost({
@@ -55,29 +52,28 @@ export default function PostDetail({ post, isDetails }: Props) {
       setPostDetail(detail);
       setName("");
       setBody("");
-      setSubmit(false);
       submitProcessing.current = false;
     }
   };
 
+  const validateLike = useMemo(
+    () => !isLoading && !hasLike && !!postDetail,
+    [hasLike, isLoading, postDetail]
+  );
   const handleLike = async () => {
-    if (!hasLike && !!postDetail) {
-      setPostDetail({ ...postDetail, like: postDetail.like + 1 });
+    if (validateLike) {
+      setPostDetail({ ...postDetail!, like: postDetail!.like + 1 });
       const detail = await onLike();
       setPostDetail(detail);
     }
   };
 
-  if (!postDetail) {
-    return <div id="comments"></div>;
-  }
-
   return (
-    <div className="flex flex-col gap-4" id="comments">
+    <div className="flex flex-col gap-8" id="comments">
       <div className="flex gap-3 mt-2 cursor-default">
         <div
           className={`flex items-center text-pink-500 ${
-            !hasLike && "cursor-pointer"
+            validateLike && "cursor-pointer"
           }`}
           onClick={() => handleLike()}
         >
@@ -86,13 +82,13 @@ export default function PostDetail({ post, isDetails }: Props) {
           ) : (
             <PhHeartStraightBold className="text-xl" />
           )}
-          {postDetail?.like ?? 0}
+          {postDetail?.like ?? "-"}
         </div>
         <div className="flex items-center">
           {isDetails ? (
             <>
               <PhChatCircleDotsFill className="text-xl" />
-              {postDetail?.comments?.length ?? 0}
+              {postDetail?.comments?.length ?? "-"}
             </>
           ) : (
             <Link
@@ -100,23 +96,27 @@ export default function PostDetail({ post, isDetails }: Props) {
               href={`/posts/${slug}#comments`}
             >
               <PhChatCircleDotsFill className="text-xl" />
-              {postDetail?.comments?.length ?? 0}
+              {postDetail?.comments?.length ?? "-"}
             </Link>
           )}
         </div>
       </div>
-      {isDetails && (
-        <>
-          {postDetail?.comments?.map((comment, index) => (
-            <div key={index}>
-              <div className="font-bold">
-                {index + 1}. {comment.name}
-              </div>
-              <div className="whitespace-pre-wrap break-words">
-                {comment.body}
-              </div>
+      {isDetails && postDetail && (
+        <div className="flex flex-col gap-8">
+          {postDetail.comments.length > 0 && (
+            <div className="flex flex-col gap-4">
+              {postDetail.comments.map((comment, index) => (
+                <div key={index}>
+                  <div className="font-bold">
+                    {index + 1}. {comment.name}
+                  </div>
+                  <div className="whitespace-pre-wrap break-words">
+                    {comment.body}
+                  </div>
+                </div>
+              ))}
             </div>
-          ))}
+          )}
           <form className="flex flex-col gap-2">
             <div className="flex flex-col">
               <label className="text-sm font-bold">名前</label>
@@ -150,7 +150,7 @@ export default function PostDetail({ post, isDetails }: Props) {
               送信
             </button>
           </form>
-        </>
+        </div>
       )}
     </div>
   );

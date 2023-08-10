@@ -9,7 +9,7 @@ export default async function Pagination({ current, totalCount }: Props) {
   }
 
   return (
-    <ul className="flex my-4 gap-2 justify-center">
+    <ul className="flex my-4 gap-2 justify-center flex-wrap">
       {range(1, end).map((number) => (
         <li key={number} className="font-bold">
           {number - 1 === current ? (

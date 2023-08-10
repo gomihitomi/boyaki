@@ -12,6 +12,7 @@ type BoyakiStorage = {
 export function useBoyakiStorage(post: Post) {
   const { slug } = post;
   const [boyakiStorage, setBoyakiStorage] = useState<BoyakiStorage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const strorage = localStorage.getItem(STORAGE_KEY_DARK_MODE);
@@ -19,6 +20,7 @@ export function useBoyakiStorage(post: Post) {
       localStorage.setItem(STORAGE_KEY_DARK_MODE, "[]");
     }
     setBoyakiStorage(!strorage ? [] : JSON.parse(strorage));
+    setIsLoading(false);
   }, []);
 
   const setUpdateBoyakiStorage = useCallback((storage: BoyakiStorage[]) => {
@@ -43,5 +45,6 @@ export function useBoyakiStorage(post: Post) {
     setBoyakiStorage: setUpdateBoyakiStorage,
     hasLike,
     onLike,
+    isLoading,
   };
 }
