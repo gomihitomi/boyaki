@@ -74,7 +74,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build with Next.js
-        run: npm run build -w packages/frontend
+        run: npm run all-build -w packages/frontend
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
