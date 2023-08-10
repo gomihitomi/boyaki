@@ -8,8 +8,9 @@
     "dev": "tsx",
     "build": "tsc --build"
   },
-  "devDependencies": {
+  "dependencies": {
     "tsx": "^3.12.7",
-    "typescript": "^5.1.6"
+    "typescript": "^5.1.6",
+    "microcms-js-sdk": "^2.5.0"
   }
 }
