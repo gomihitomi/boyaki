@@ -53,3 +53,30 @@ export const getPostDetail = async (slug: string) => {
   });
   return result;
 };
+
+export const updatePostLike = async (id: string) => {
+  const result = await client.getListDetail<Post>({
+    endpoint: "posts",
+    contentId: id,
+  });
+  if (!result) {
+    console.warn("not id: " + id);
+    return;
+  }
+  const like = (result.like ?? 0) + 1;
+  await client.update({
+    endpoint: "posts",
+    contentId: id,
+    content: {
+      like,
+    },
+  });
+  const updatedResult = await client.getListDetail<Post>({
+    endpoint: "posts",
+    contentId: id,
+  });
+  return {
+    like: updatedResult.like ?? 0,
+    comments: updatedResult.comments ?? [],
+  };
+};

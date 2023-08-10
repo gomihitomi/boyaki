@@ -1,20 +1,19 @@
-import { Post } from "@boyaki/lib";
+import { ApiPostDetail, getApiPostDetail } from "@/libs/microcms";
 import { useEffect, useState } from "react";
 
 export function usePostDetail(slug: string) {
-  const [postDetail, setPostDetail] = useState<Post>();
+  const [postDetail, setPostDetail] = useState<ApiPostDetail>();
 
   useEffect(() => {
     const run = async () => {
-      // const posts = await getPostDetail(slug);
-      // if (!!posts && posts.totalCount === 0) {
-      //   setPostDetail(posts.contents[0]);
-      // }
+      const postDetail = await getApiPostDetail(slug);
+      setPostDetail(postDetail);
     };
     run();
   }, [slug]);
 
   return {
     postDetail,
+    setPostDetail,
   };
 }

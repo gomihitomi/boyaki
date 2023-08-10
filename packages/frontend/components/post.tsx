@@ -30,7 +30,7 @@ export default async function Post({ post, isDetails }: Props) {
           {parse(post.body, { replace })}
         </div>
       </article>
-      <PostDetail {...{ slug: post.slug, isDetails }} />
+      <PostDetail {...{ post, isDetails }} />
     </div>
   );
 }

@@ -1,3 +1,5 @@
+import { postApiLike } from "@/libs/microcms";
+import { Post } from "@boyaki/lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const STORAGE_KEY_DARK_MODE = "gomihitomi.boyaki.localstorage";
@@ -7,7 +9,8 @@ type BoyakiStorage = {
   hasLike: boolean;
 };
 
-export function useBoyakiStorage(slug: string) {
+export function useBoyakiStorage(post: Post) {
+  const { slug } = post;
   const [boyakiStorage, setBoyakiStorage] = useState<BoyakiStorage[]>([]);
 
   useEffect(() => {
@@ -28,10 +31,11 @@ export function useBoyakiStorage(slug: string) {
     [boyakiStorage, slug]
   );
 
-  const onLike = () => {
+  const onLike = async () => {
     const value = boyakiStorage.filter((v) => v.slug !== slug);
-    // TODO: 終わったらプッシュ
-    // setUpdateBoyakiStorage([...value, { slug, hasLike: !hasLike }]);
+    setUpdateBoyakiStorage([...value, { slug, hasLike: !hasLike }]);
+    const result = await postApiLike(post.id);
+    return result;
   };
 
   return {

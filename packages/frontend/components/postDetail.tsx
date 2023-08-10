@@ -4,15 +4,18 @@ import PhChatCircleDotsFill from "@/components/icons/PhChatCircleDotsFill";
 import { useBoyakiStorage } from "@/hooks/useBoyakiStorage";
 import { usePostDetail } from "@/hooks/usePostDetail";
 import { LINK_CLASSNAME } from "@/libs/constants";
+import { Post } from "@boyaki/lib";
 import Link from "next/link";
 import { useState } from "react";
 import PhHeartStraightBold from "./icons/PhHeartStraightBold";
 import PhHeartStraightFill from "./icons/PhHeartStraightFill";
 
-type Props = { slug: string; isDetails?: boolean };
-export default function PostDetail({ slug, isDetails }: Props) {
-  const { hasLike, onLike } = useBoyakiStorage(slug);
-  const { postDetail } = usePostDetail(slug);
+type Props = { post: Post; isDetails?: boolean };
+export default function PostDetail({ post, isDetails }: Props) {
+  const { slug } = post;
+
+  const { hasLike, onLike } = useBoyakiStorage(post);
+  const { postDetail, setPostDetail } = usePostDetail(slug);
 
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
@@ -24,6 +27,18 @@ export default function PostDetail({ slug, isDetails }: Props) {
     setBody("");
   };
 
+  const handleLike = async () => {
+    if (!hasLike && !!postDetail) {
+      setPostDetail({ ...postDetail, like: postDetail.like + 1 });
+      const detail = await onLike();
+      setPostDetail(detail);
+    }
+  };
+
+  if (!postDetail) {
+    return <div id="comments"></div>;
+  }
+
   return (
     <div className="flex flex-col gap-4" id="comments">
       <div className="flex gap-3 mt-2 cursor-default">
@@ -31,7 +46,7 @@ export default function PostDetail({ slug, isDetails }: Props) {
           className={`flex items-center text-pink-500 ${
             !hasLike && "cursor-pointer"
           }`}
-          onClick={() => !hasLike && onLike()}
+          onClick={() => handleLike()}
         >
           {hasLike ? (
             <PhHeartStraightFill className="text-xl" />
