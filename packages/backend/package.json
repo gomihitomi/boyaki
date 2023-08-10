@@ -5,7 +5,8 @@
   "main": "api/index.js",
   "scripts": {
     "dev": "tsx watch api/index.ts",
-    "build": "tsc"
+    "build": "tsc --build",
+    "all-build": "npm run build -w @boyaki/lib && npm run build"
   },
   "dependencies": {
     "@boyaki/lib": "*",

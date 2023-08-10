@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm run build --workspaces",
-    "fe-build": "npm run build -w packages/lib -w packages/frontend",
-    "be-build": "npm run build -w packages/lib -w packages/backend"
+    "build": "npm run build --workspaces"
   },
   "workspaces": [
     "packages/lib",

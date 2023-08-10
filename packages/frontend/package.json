@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev -p 5313",
     "build": "next build",
+    "all-build": "npm run build -w @boyaki/lib && npm run build",
     "start": "serve out -p 5313",
     "prod": "npm run build && npm run start",
     "lint": "next lint"
