@@ -56,6 +56,8 @@ const replace = (domNode: DOMNode) => {
       <Link
         {...domNode.attribs}
         href={domNode.attribs.href}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
         className="text-emerald-700 font-bold"
       >
         {domToReact(domNode.children, { replace })}

@@ -1,4 +1,5 @@
 import { LINK_CLASSNAME } from "@/libs/constants";
+import { Metadata } from "next";
 import Link from "next/link";
 
 type Link = {
@@ -13,12 +14,21 @@ const LINKS: Link[] = [
   },
 ];
 
+export const metadata: Metadata = {
+  title: "リンク集",
+};
+
 export default async function StaticPage() {
   return (
     <div className="flex flex-col gap-2">
       {LINKS.map((link, i) => (
         <div key={i}>
-          <Link href={link.url} className={`${LINK_CLASSNAME}`}>
+          <Link
+            href={link.url}
+            className={`${LINK_CLASSNAME}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+          >
             {link.name}
           </Link>
           <div>管理人コメント: オススメ！！</div>

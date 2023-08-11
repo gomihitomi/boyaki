@@ -4,13 +4,14 @@ import PhChatCircleDotsFill from "@/components/icons/PhChatCircleDotsFill";
 import { useBoyakiStorage } from "@/hooks/useBoyakiStorage";
 import { usePostDetail } from "@/hooks/usePostDetail";
 import { postApiLikeOrPost } from "@/libs/api";
-import { LINK_CLASSNAME } from "@/libs/constants";
+import { LINK_CLASSNAME, SITE_TITLE } from "@/libs/constants";
 import { Post } from "@boyaki/lib";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import EosIconsLoading from "./icons/EosIconsLoading";
 import PhHeartStraightBold from "./icons/PhHeartStraightBold";
 import PhHeartStraightFill from "./icons/PhHeartStraightFill";
+import PrimeTwitter from "./icons/PrimeTwitter";
 
 type Props = { post: Post; isDetails?: boolean };
 export default function PostDetail({ post, isDetails }: Props) {
@@ -70,36 +71,48 @@ export default function PostDetail({ post, isDetails }: Props) {
 
   return (
     <div className="flex flex-col gap-8" id="comments">
-      <div className="flex gap-3 mt-2 cursor-default">
-        <div
-          className={`flex items-center text-pink-500 ${
-            validateLike && "cursor-pointer"
-          }`}
-          onClick={() => handleLike()}
-        >
-          {hasLike ? (
-            <PhHeartStraightFill className="text-xl" />
-          ) : (
-            <PhHeartStraightBold className="text-xl" />
-          )}
-          {postDetail?.like ?? "-"}
+      <div className="flex justify-between mt-2 cursor-default">
+        <div className="flex gap-3">
+          <div
+            className={`flex items-center text-pink-500 ${
+              validateLike && "cursor-pointer"
+            }`}
+            onClick={() => handleLike()}
+          >
+            {hasLike ? (
+              <PhHeartStraightFill className="text-xl" />
+            ) : (
+              <PhHeartStraightBold className="text-xl" />
+            )}
+            {postDetail?.like ?? "-"}
+          </div>
+          <div className="flex items-center">
+            {isDetails ? (
+              <>
+                <PhChatCircleDotsFill className="text-xl" />
+                {postDetail?.comments?.length ?? "-"}
+              </>
+            ) : (
+              <Link
+                className={`flex items-center ${LINK_CLASSNAME} font-medium`}
+                href={`/posts/${slug}#comments`}
+              >
+                <PhChatCircleDotsFill className="text-xl" />
+                {postDetail?.comments?.length ?? "-"}
+              </Link>
+            )}
+          </div>
         </div>
-        <div className="flex items-center">
-          {isDetails ? (
-            <>
-              <PhChatCircleDotsFill className="text-xl" />
-              {postDetail?.comments?.length ?? "-"}
-            </>
-          ) : (
-            <Link
-              className={`flex items-center ${LINK_CLASSNAME} font-medium`}
-              href={`/posts/${slug}#comments`}
-            >
-              <PhChatCircleDotsFill className="text-xl" />
-              {postDetail?.comments?.length ?? "-"}
-            </Link>
-          )}
-        </div>
+        {isDetails && (
+          <Link
+            href={`https://twitter.com/share?url=${location.href}&text=${post.title}｜${SITE_TITLE}&hashtags=${SITE_TITLE}`}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            className="text-2xl cursor-pointer flex items-center"
+          >
+            <PrimeTwitter />
+          </Link>
+        )}
       </div>
       {isDetails && postDetail && (
         <div className="flex flex-col gap-8">

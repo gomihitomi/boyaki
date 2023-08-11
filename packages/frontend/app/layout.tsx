@@ -1,11 +1,12 @@
 import Footer from "@/components/footer";
 import Header from "@/components/header";
+import { SITE_TITLE } from "@/libs/constants";
 import type { Metadata } from "next";
 import { BIZ_UDPGothic } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "吾味人美のぼやき",
+  title: { default: SITE_TITLE, template: `%s｜${SITE_TITLE}` },
   description: "Vtuber吾味人美のぼやきです。",
   viewport: { width: "device-width", initialScale: 1 },
 };
