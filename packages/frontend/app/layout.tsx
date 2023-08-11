@@ -10,6 +10,9 @@ export const metadata: Metadata = {
   title: { default: SITE_TITLE, template: `%s｜${SITE_TITLE}` },
   description: "Vtuber吾味人美のぼやきです。",
   viewport: { width: "device-width", initialScale: 1 },
+  openGraph: {
+    images: `ogps/base.png`,
+  },
 };
 const font = BIZ_UDPGothic({
   weight: ["400", "700"],

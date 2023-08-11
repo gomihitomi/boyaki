@@ -5,42 +5,73 @@ import satori from "satori";
 import sharp from "sharp";
 import { SITE_TITLE } from "./constants";
 
-export const writeOgpImage = async (title: string, slug: string) => {
+export const writeOgpImage = async (title: string, slug: string = "base") => {
   const imagePath = path.join("public", "ogps");
   if (!fs.existsSync(imagePath)) fs.mkdirSync(imagePath, { recursive: true });
 
-  const image = await generateOgpImage(title);
+  const image = await generateOgpImage(title, slug);
   fs.writeFileSync(path.join(imagePath, `${slug}.png`), image);
 };
 
-const generateOgpImage = async (title: string) => {
+const generateOgpImage = async (title: string, slug: string) => {
   const getFontPath = (name: string) => path.join("libs", "fonts", name);
   const fontMedium = fs.readFileSync(getFontPath("NotoSansJP-Regular.ttf"));
   const fontBold = fs.readFileSync(getFontPath("NotoSansJP-Bold.ttf"));
 
+  // base : SITE_URL
+  // !base: SITETITLE - SITE_URL
+  const isBase = slug === "base";
+  const url = `${!isBase ? SITE_TITLE + " - " : ""}${
+    process.env.NEXT_PUBLIC_SITE_URL
+  }${!isBase ? "posts/" + slug + "/" : ""}`;
+
   const svg = await satori(
     <div
       style={{
-        height: "100%",
+        backgroundImage:
+          "linear-gradient(180deg, rgba(24, 24, 28, 1), rgba(12, 12, 16, 1))",
         width: "100%",
+        height: "100%",
         display: "flex",
-        justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#fff",
+        justifyContent: "center",
       }}
     >
       <div
         style={{
+          width: "90%",
+          height: "90%",
           display: "flex",
           flexDirection: "column",
+          alignItems: "center",
           justifyContent: "space-between",
-          width: "100%",
-          height: "100%",
-          padding: "2rem 3rem",
         }}
       >
-        <p style={{ fontSize: 90, fontWeight: 700 }}>{title}</p>
-        <div style={{ fontSize: 45, fontWeight: 500 }}>{SITE_TITLE}</div>
+        <div
+          style={{
+            width: "100%",
+            height: "90%",
+            display: "flex",
+            fontSize: "75px",
+            borderRadius: "8px",
+            backgroundColor: "#fff",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            fontWeight: 700,
+          }}
+        >
+          {title}
+        </div>
+        <div
+          style={{
+            color: "#fff",
+            fontWeight: 400,
+            fontSize: 24,
+          }}
+        >
+          {url}
+        </div>
       </div>
     </div>,
     {
@@ -51,7 +82,7 @@ const generateOgpImage = async (title: string) => {
           name: "Noto Sans JP",
           data: fontMedium,
           style: "normal",
-          weight: 500,
+          weight: 400,
         },
         {
           name: "Noto Sans JP",
