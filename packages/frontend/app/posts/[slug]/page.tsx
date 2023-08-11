@@ -37,6 +37,9 @@ export async function generateMetadata({
       title: siteTitle,
       images: `ogps/${slug}.png`,
     },
+    twitter: {
+      card: "summary_large_image",
+    },
   };
 }
 

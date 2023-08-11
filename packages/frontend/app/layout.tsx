@@ -17,6 +17,9 @@ export const metadata: Metadata = {
     title: SITE_TITLE,
     images: `ogps/base.png`,
   },
+  twitter: {
+    card: "summary_large_image",
+  },
 };
 const font = BIZ_UDPGothic({
   weight: ["400", "700"],
