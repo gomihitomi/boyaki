@@ -1,8 +1,9 @@
-import { ApiPostDetail, getApiPostDetail } from "@/libs/microcms";
+import { getApiPostDetail } from "@/libs/api";
+import { ApiPostDetailResponse } from "@boyaki/lib";
 import { useEffect, useState } from "react";
 
 export function usePostDetail(slug: string) {
-  const [postDetail, setPostDetail] = useState<ApiPostDetail>();
+  const [postDetail, setPostDetail] = useState<ApiPostDetailResponse>();
 
   useEffect(() => {
     const run = async () => {

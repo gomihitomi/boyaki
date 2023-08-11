@@ -1,6 +1,3 @@
 export * from "./microcms";
+export * from "./types";
 export * from "./utils";
-
-export function getExample() {
-  return "example message";
-}

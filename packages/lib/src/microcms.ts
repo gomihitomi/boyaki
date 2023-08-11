@@ -5,6 +5,7 @@ import type {
   MicroCMSQueries,
 } from "microcms-js-sdk";
 import { createClient } from "microcms-js-sdk";
+import { ApiPostDetailResponse } from "./types";
 import { PAGE_POST_LIMIT } from "./utils";
 
 type MicroCMSType = MicroCMSContentId & MicroCMSDate;
@@ -75,10 +76,11 @@ export const updatePostLike = async (id: string) => {
     endpoint: "posts",
     contentId: id,
   });
-  return {
+  const data: ApiPostDetailResponse = {
     like: updatedResult.like ?? 0,
     comments: updatedResult.comments ?? [],
   };
+  return data;
 };
 
 export const updatePostComment = async (
@@ -108,12 +110,10 @@ export const updatePostComment = async (
   const updatedResult = await client.getListDetail<Post>({
     endpoint: "posts",
     contentId: id,
-    customRequestInit: {
-      cache: "no-cache",
-    },
   });
-  return {
+  const data: ApiPostDetailResponse = {
     like: updatedResult.like ?? 0,
     comments: updatedResult.comments ?? [],
   };
+  return data;
 };

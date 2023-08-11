@@ -1,4 +1,9 @@
-import { getPostDetail, updatePostComment, updatePostLike } from "@boyaki/lib";
+import {
+  ApiPostRequest,
+  getPostDetail,
+  updatePostComment,
+  updatePostLike,
+} from "@boyaki/lib";
 import * as Express from "express";
 const router = Express.Router();
 
@@ -37,15 +42,8 @@ router.get("/", async (req, res) => {
   res.send({ like: like ?? 0, comments: comments ?? [] });
 });
 
-type PostRequest = {
-  type: "like" | "comment";
-  id: string;
-  slug: string;
-  name?: string;
-  body?: string;
-};
 router.post("/", async (req, res) => {
-  const request: PostRequest = req.body;
+  const request: ApiPostRequest = req.body;
   if (request.type === "like") {
     const likeResult = await updatePostLike(request.id);
     res.send(likeResult);

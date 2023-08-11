@@ -3,11 +3,12 @@
 import PhChatCircleDotsFill from "@/components/icons/PhChatCircleDotsFill";
 import { useBoyakiStorage } from "@/hooks/useBoyakiStorage";
 import { usePostDetail } from "@/hooks/usePostDetail";
+import { postApiLikeOrPost } from "@/libs/api";
 import { LINK_CLASSNAME } from "@/libs/constants";
-import { postApiLikeOrPost } from "@/libs/microcms";
 import { Post } from "@boyaki/lib";
 import Link from "next/link";
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
+import EosIconsLoading from "./icons/EosIconsLoading";
 import PhHeartStraightBold from "./icons/PhHeartStraightBold";
 import PhHeartStraightFill from "./icons/PhHeartStraightFill";
 
@@ -21,8 +22,6 @@ export default function PostDetail({ post, isDetails }: Props) {
   const [name, setName] = useState("");
   const [body, setBody] = useState("");
 
-  const submitProcessing = useRef(false);
-
   const isErrorName = useMemo(
     () => name.length === 0 || name.length > 100,
     [name]
@@ -31,29 +30,30 @@ export default function PostDetail({ post, isDetails }: Props) {
     () => body.length === 0 || body.length > 1000,
     [body]
   );
-  const disabledSubmit = useMemo(
-    () => !!postDetail && !isErrorName && !isErrorBody,
-    [isErrorBody, isErrorName, postDetail]
-  );
+
+  const [isProcessing, setIsProcessing] = useState(false);
+  const disabledSubmit = useMemo(() => {
+    return !isProcessing && !!postDetail && !isErrorName && !isErrorBody;
+  }, [isErrorBody, isErrorName, postDetail, isProcessing]);
 
   const onSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    if (submitProcessing.current) {
+    if (isProcessing || !disabledSubmit) {
       return;
     }
-    if (disabledSubmit) {
-      submitProcessing.current = true;
-      const detail = await postApiLikeOrPost({
-        type: "comment",
-        id: post.id,
-        name,
-        body,
-      });
-      setPostDetail(detail);
-      setName("");
-      setBody("");
-      submitProcessing.current = false;
-    }
+    setIsProcessing(true);
+
+    const detail = await postApiLikeOrPost({
+      type: "comment",
+      id: post.id,
+      name,
+      body,
+    });
+    setPostDetail(detail);
+
+    setName("");
+    setBody("");
+    setIsProcessing(false);
   };
 
   const validateLike = useMemo(
@@ -147,7 +147,11 @@ export default function PostDetail({ post, isDetails }: Props) {
               onClick={(e) => onSubmit(e)}
               disabled={!disabledSubmit}
             >
-              送信
+              {!isProcessing ? (
+                "送信"
+              ) : (
+                <EosIconsLoading className="text-xl inline-block" />
+              )}
             </button>
           </form>
         </div>

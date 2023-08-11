@@ -1,4 +1,4 @@
-import { postApiLikeOrPost } from "@/libs/microcms";
+import { postApiLikeOrPost } from "@/libs/api";
 import { Post } from "@boyaki/lib";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
