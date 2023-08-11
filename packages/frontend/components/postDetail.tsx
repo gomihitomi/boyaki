@@ -103,9 +103,9 @@ export default function PostDetail({ post, isDetails }: Props) {
             )}
           </div>
         </div>
-        {isDetails && (
+        {!!isDetails && !!process.env.NEXT_PUBLIC_SITE_URL && (
           <Link
-            href={`https://twitter.com/share?url=${process.env.SITE_URL}&text=${post.title}｜${SITE_TITLE}&hashtags=${SITE_TITLE}`}
+            href={`https://twitter.com/share?url=${process.env.NEXT_PUBLIC_SITE_URL}&text=${post.title}｜${SITE_TITLE}&hashtags=${SITE_TITLE}`}
             target="_blank"
             rel="noopener noreferrer nofollow"
             className="text-2xl cursor-pointer flex items-center"
