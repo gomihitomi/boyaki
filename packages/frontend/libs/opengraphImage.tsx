@@ -4,6 +4,7 @@ import path from "path";
 import satori from "satori";
 import sharp from "sharp";
 import { SITE_TITLE } from "./constants";
+import { getSiteUrl } from "./utils";
 
 export const writeOgpImage = async (title: string, slug: string = "base") => {
   const imagePath = path.join("public", "ogps");
@@ -21,9 +22,9 @@ const generateOgpImage = async (title: string, slug: string) => {
   // base : SITE_URL
   // !base: SITETITLE - SITE_URL
   const isBase = slug === "base";
-  const url = `${!isBase ? SITE_TITLE + " - " : ""}${
-    process.env.NEXT_PUBLIC_SITE_URL
-  }${!isBase ? "posts/" + slug + "/" : ""}`;
+  const url = `${!isBase ? SITE_TITLE + " - " : ""}${getSiteUrl(
+    isBase ? undefined : slug
+  )}`;
 
   const svg = await satori(
     <div

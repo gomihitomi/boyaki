@@ -1,5 +1,6 @@
 import Post from "@/components/post";
 import { writeOgpImage } from "@/libs/opengraphImage";
+import { getSiteTitle, getSiteUrl } from "@/libs/utils";
 import { getPostDetail, getPosts } from "@boyaki/lib";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -26,9 +27,14 @@ export async function generateMetadata({
   if (!posts || posts.totalCount !== 1) {
     notFound();
   }
+  const { title } = posts.contents[0];
+  const siteTitle = getSiteTitle(title);
   return {
-    title: posts.contents[0].title,
+    title: siteTitle,
     openGraph: {
+      type: "article",
+      url: getSiteUrl(slug),
+      title: siteTitle,
       images: `ogps/${slug}.png`,
     },
   };
