@@ -1,10 +1,15 @@
 import Post from "@/components/post";
+import { writeOgpImage } from "@/libs/opengraphImage";
 import { getPostDetail, getPosts } from "@boyaki/lib";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
   const { contents } = await getPosts({ limit: 1000 });
+
+  await Promise.all(
+    contents.map((post) => writeOgpImage(post.title, post.slug))
+  );
 
   const paths = contents.map((post) => ({ slug: post.slug }));
   return [...paths];
@@ -23,6 +28,9 @@ export async function generateMetadata({
   }
   return {
     title: posts.contents[0].title,
+    openGraph: {
+      images: `ogps/${slug}.png`,
+    },
   };
 }
 

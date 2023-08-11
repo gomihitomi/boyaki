@@ -6,6 +6,7 @@ import { BIZ_UDPGothic } from "next/font/google";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? ""),
   title: { default: SITE_TITLE, template: `%s｜${SITE_TITLE}` },
   description: "Vtuber吾味人美のぼやきです。",
   viewport: { width: "device-width", initialScale: 1 },
