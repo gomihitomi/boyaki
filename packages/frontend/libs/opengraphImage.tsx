@@ -7,7 +7,7 @@ import { SITE_TITLE } from "./constants";
 
 export const writeOgpImage = async (title: string, slug: string) => {
   const imagePath = path.join("public", "ogps");
-  if (!fs.existsSync(imagePath)) fs.mkdirSync(imagePath);
+  if (!fs.existsSync(imagePath)) fs.mkdirSync(imagePath, { recursive: true });
 
   const image = await generateOgpImage(title);
   fs.writeFileSync(path.join(imagePath, `${slug}.png`), image);
