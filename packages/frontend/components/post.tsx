@@ -8,11 +8,15 @@ import PostDetail from "./postDetail";
 
 type Props = { post: Post; isDetails?: boolean };
 export default async function Post({ post, isDetails }: Props) {
-  const title = <h2 className="text-xl font-bold">{post.title}</h2>;
+  const title = <h2 className="text-xl font-bold leading-4">{post.title}</h2>;
   return (
     <div>
-      <article className="border-b border-dotted border-black pb-3">
-        <div className="relative mb-6">
+      <article className="border-b border-dotted border-black pb-5">
+        <div
+          className={`mb-4 border-l-8 pl-2 flex flex-col gap-1 border-${
+            isDetails ? "black" : "emerald-700"
+          }`}
+        >
           {isDetails ? (
             title
           ) : (
@@ -20,7 +24,7 @@ export default async function Post({ post, isDetails }: Props) {
               {title}
             </Link>
           )}
-          <div className="text-sm absolute -bottom-4 flex gap-2 items-center">
+          <div className="text-xs font-bold flex gap-2 items-center leading-3">
             <span>
               {dayjs(post.publishedAt).add(9, "h").format("YYYY.MM.DD")}
             </span>
