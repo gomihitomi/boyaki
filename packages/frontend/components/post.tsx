@@ -13,8 +13,8 @@ export default async function Post({ post, isDetails }: Props) {
     <div>
       <article className="border-b border-dotted border-black pb-5">
         <div
-          className={`mb-4 border-l-8 pl-2 flex flex-col gap-1 border-${
-            isDetails ? "black" : "emerald-700"
+          className={`mb-4 border-l-8 pl-2 flex flex-col gap-1 ${
+            isDetails ? "border-black" : "border-emerald-700"
           }`}
         >
           {isDetails ? (
