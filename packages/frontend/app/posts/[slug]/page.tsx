@@ -1,6 +1,6 @@
 import Post from "@/components/post";
 import { writeOgpImage } from "@/libs/opengraphImage";
-import { getSiteTitle, getSiteUrl } from "@/libs/utils";
+import { bodyToDescription, getSiteTitle, getSiteUrl } from "@/libs/utils";
 import { getPostDetail, getPosts } from "@boyaki/lib";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -8,9 +8,12 @@ import { notFound } from "next/navigation";
 export async function generateStaticParams() {
   const { contents } = await getPosts({ limit: 1000 });
 
-  await Promise.all(
-    contents.map((post) => writeOgpImage(post.title, post.slug))
-  );
+  // devで動かしてる時も画像出力すると時間が掛かるのでページ毎のOGPは省略
+  if (process.env.NODE_ENV !== "development") {
+    await Promise.all(
+      contents.map((post) => writeOgpImage(post.title, post.slug))
+    );
+  }
 
   const paths = contents.map((post) => ({ slug: post.slug }));
   return [...paths];
@@ -27,15 +30,20 @@ export async function generateMetadata({
   if (!posts || posts.totalCount !== 1) {
     notFound();
   }
-  const { title } = posts.contents[0];
+  const { title, body } = posts.contents[0];
+
   const siteTitle = getSiteTitle(title);
+  const description = bodyToDescription(body);
+
   return {
     title: siteTitle,
+    description,
     openGraph: {
       type: "article",
       url: getSiteUrl(slug),
       title: siteTitle,
       images: `ogps/${slug}.png`,
+      description,
     },
     twitter: {
       card: "summary_large_image",
