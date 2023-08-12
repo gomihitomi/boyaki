@@ -26,7 +26,7 @@ export default async function Post({ post, isDetails }: Props) {
             </span>
           </div>
         </div>
-        <div className="flex flex-col gap-3 leading-6 break-words">
+        <div className="flex flex-col gap-4 leading-6 break-words">
           {parse(post.body, { replace })}
         </div>
       </article>

@@ -11,7 +11,13 @@ export async function generateStaticParams() {
   // devで動かしてる時も画像出力すると時間が掛かるのでページ毎のOGPは省略
   if (process.env.NODE_ENV !== "development") {
     await Promise.all(
-      contents.map((post) => writeOgpImage(post.title, post.slug))
+      contents.map((post) =>
+        writeOgpImage({
+          title: post.title,
+          slug: post.slug,
+          imageUrl: post.image?.url,
+        })
+      )
     );
   }
 

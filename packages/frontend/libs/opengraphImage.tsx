@@ -6,25 +6,27 @@ import sharp from "sharp";
 import { SITE_TITLE } from "./constants";
 import { getSiteUrl } from "./utils";
 
-export const writeOgpImage = async (title: string, slug: string = "base") => {
+type Props = {
+  title: string;
+  slug?: string;
+  imageUrl?: string;
+};
+export const writeOgpImage = async (props: Props) => {
   const imagePath = path.join("public", "ogps");
   if (!fs.existsSync(imagePath)) fs.mkdirSync(imagePath, { recursive: true });
 
-  const image = await generateOgpImage(title, slug);
-  fs.writeFileSync(path.join(imagePath, `${slug}.png`), image);
+  const image = await generateOgpImage(props);
+  fs.writeFileSync(path.join(imagePath, `${props.slug ?? "base"}.png`), image);
 };
 
-const generateOgpImage = async (title: string, slug: string) => {
-  const getFontPath = (name: string) => path.join("libs", "fonts", name);
+const generateOgpImage = async ({ title, slug, imageUrl }: Props) => {
+  const getFontPath = (name: string) => path.join("assets", "fonts", name);
   const fontMedium = fs.readFileSync(getFontPath("NotoSansJP-Regular.ttf"));
   const fontBold = fs.readFileSync(getFontPath("NotoSansJP-Bold.ttf"));
 
   // base : SITE_URL
   // !base: SITETITLE - SITE_URL
-  const isBase = slug === "base";
-  const url = `${!isBase ? SITE_TITLE + " - " : ""}${getSiteUrl(
-    isBase ? undefined : slug
-  )}`;
+  const url = `${slug ? SITE_TITLE + " - " : ""}${getSiteUrl(slug)}`;
 
   const svg = await satori(
     <div
@@ -53,16 +55,24 @@ const generateOgpImage = async (title: string, slug: string) => {
             width: "100%",
             height: "90%",
             display: "flex",
-            fontSize: "75px",
             borderRadius: "8px",
+            padding: "24px",
             backgroundColor: "#fff",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            fontWeight: 700,
           }}
         >
-          {title}
+          <span
+            style={{
+              fontSize: "75px",
+              fontWeight: 700,
+              textAlign: "center",
+              lineHeight: 1,
+            }}
+          >
+            {title}
+          </span>
         </div>
         <div
           style={{
